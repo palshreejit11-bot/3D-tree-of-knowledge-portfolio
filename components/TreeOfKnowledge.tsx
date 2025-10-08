@@ -8,7 +8,7 @@ import * as THREE from 'three';
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 // A free model by baronwatts, converted to Draco for smaller size.
-const TREE_MODEL_URL = 'https://raw.githubusercontent.com/baronwatts/models/master/trees/tree-draco.glb';
+const TREE_MODEL_URL = 'https://raw.githubusercontent.com/baronwatts/models/main/trees/tree-draco.glb';
 
 const TreeOfKnowledge: React.FC = () => {
     const gltf = useGLTF(TREE_MODEL_URL);
