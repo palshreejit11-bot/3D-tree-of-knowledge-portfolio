@@ -28,7 +28,8 @@ const TreeOfKnowledge: React.FC = () => {
 
         if (positions.length > 0) {
             // Fix: Use the imported BufferGeometryUtils instead of accessing it through THREE.
-            const mergedPositions = BufferGeometryUtils.mergeBufferAttributes(positions);
+            // Fix: Correctly use `mergeAttributes` from `BufferGeometryUtils` as `mergeBufferAttributes` is deprecated/renamed.
+            const mergedPositions = BufferGeometryUtils.mergeAttributes(positions);
             geometry.setAttribute('position', mergedPositions);
         }
         
