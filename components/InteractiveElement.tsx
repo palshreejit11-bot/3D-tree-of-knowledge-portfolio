@@ -1,20 +1,32 @@
 
 // Fix: Add side-effect import to extend JSX namespace for react-three-fiber elements.
 import '@react-three/fiber';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Sphere, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import HolographicPanel from './HolographicPanel';
+import { InteractiveItem } from '../types';
+import { useStore } from '../store/useStore';
 
 interface InteractiveElementProps {
-    position: [number, number, number];
-    content: string;
+    item: InteractiveItem;
+    isClickable: boolean;
 }
 
-const InteractiveElement: React.FC<InteractiveElementProps> = ({ position, content }) => {
+const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickable }) => {
     const [isHovered, setHovered] = useState(false);
     const meshRef = useRef<THREE.Mesh>(null);
+    const setExpandedProject = useStore(state => state.setExpandedProject);
+
+    useEffect(() => {
+        if (isHovered && isClickable) {
+            document.body.style.cursor = 'pointer';
+        } else {
+            document.body.style.cursor = 'auto';
+        }
+        return () => { document.body.style.cursor = 'auto' };
+    }, [isHovered, isClickable]);
 
     useFrame(({ clock }) => {
         if (meshRef.current) {
@@ -25,13 +37,20 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ position, conte
         }
     });
 
+    const handleClick = () => {
+        if (isClickable) {
+            setExpandedProject(item);
+        }
+    };
+
     return (
-        <group position={position}>
+        <group position={item.position as [number, number, number]}>
             <Sphere
                 ref={meshRef}
                 args={[0.15, 16, 16]}
                 onPointerOver={() => setHovered(true)}
                 onPointerOut={() => setHovered(false)}
+                onClick={handleClick}
             >
                 <meshStandardMaterial 
                     color="#00e7ff" 
@@ -52,7 +71,7 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ position, conte
                 }}
             >
                 <HolographicPanel>
-                    {content}
+                    {item.text}
                 </HolographicPanel>
             </Html>
         </group>

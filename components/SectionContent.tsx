@@ -18,8 +18,8 @@ const SectionContent: React.FC = () => {
                     {section.items.map((item, itemIndex) => (
                          <InteractiveElement 
                             key={`${section.id}-${itemIndex}`}
-                            position={item.position as [number, number, number]}
-                            content={item.text}
+                            item={item}
+                            isClickable={section.id === 'our-work'}
                          />
                     ))}
                 </group>
