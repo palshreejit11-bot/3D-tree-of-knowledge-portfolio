@@ -1,9 +1,8 @@
-
 // Fix: Add side-effect import to extend JSX namespace for react-three-fiber elements.
 import '@react-three/fiber';
 import React, { useState, useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere, Html } from '@react-three/drei';
+import { Icosahedron, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import HolographicPanel from './HolographicPanel';
 import { InteractiveItem } from '../types';
@@ -45,20 +44,21 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickab
 
     return (
         <group position={item.position as [number, number, number]}>
-            <Sphere
+            <Icosahedron
                 ref={meshRef}
-                args={[0.15, 16, 16]}
+                args={[0.15, 0]} // args={[radius, detail]}
+                scale={1.5}
                 onPointerOver={() => setHovered(true)}
                 onPointerOut={() => setHovered(false)}
                 onClick={handleClick}
             >
                 <meshStandardMaterial 
-                    color="#00e7ff" 
-                    emissive="#00e7ff" 
+                    color="#ffd700" 
+                    emissive="#ffaa00" 
                     emissiveIntensity={0.5} 
                     toneMapped={false}
                 />
-            </Sphere>
+            </Icosahedron>
             <Html 
                 position={[0, 0.3, 0]}
                 center
