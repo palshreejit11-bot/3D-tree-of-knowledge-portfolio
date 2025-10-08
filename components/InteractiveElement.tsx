@@ -53,7 +53,7 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickab
                 <meshStandardMaterial 
                     color="#ffd700" 
                     emissive="#ffaa00" 
-                    emissiveIntensity={0.5} 
+                    emissiveIntensity={1.5} 
                     toneMapped={false}
                 />
             </Icosahedron>

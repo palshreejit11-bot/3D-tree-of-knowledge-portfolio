@@ -1,4 +1,5 @@
 
+
 import React, { Suspense, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Loader } from '@react-three/drei';
@@ -62,9 +63,9 @@ const App: React.FC = () => {
                 </Canvas>
                 <div 
                     ref={mainTitleRef}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[12rem] md:-translate-y-[15rem] text-center pointer-events-none w-full px-4"
+                    className="absolute top-8 left-1/2 -translate-x-1/2 text-center pointer-events-none w-full px-4"
                 >
-                    <div className="holographic rounded-lg inline-block p-4 md:p-6 max-w-lg">
+                    <div className="holographic title-holographic-animated rounded-lg inline-block p-3 md:p-4 max-w-md">
                         <h1 className="text-3xl md:text-5xl font-bold text-cyan-200 tracking-widest uppercase">
                            {SECTION_DATA[0].title}
                         </h1>

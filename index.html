@@ -43,6 +43,21 @@
             0% { top: 0%; }
             100% { top: 100%; }
         }
+
+        @keyframes pulse-glow {
+          0%, 100% {
+            box-shadow: 0 0 15px rgba(0, 231, 255, 0.3), 0 0 25px rgba(0, 231, 255, 0.2) inset;
+            text-shadow: 0 0 5px rgba(0, 231, 255, 0.7);
+          }
+          50% {
+            box-shadow: 0 0 25px rgba(0, 231, 255, 0.7), 0 0 40px rgba(0, 231, 255, 0.4) inset;
+            text-shadow: 0 0 10px rgba(0, 231, 255, 1);
+          }
+        }
+
+        .title-holographic-animated {
+          animation: pulse-glow 4s infinite ease-in-out;
+        }
     </style>
 </head>
 <body>
