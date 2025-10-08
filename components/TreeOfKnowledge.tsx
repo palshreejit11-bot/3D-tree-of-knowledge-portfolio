@@ -64,7 +64,7 @@ const TreeOfKnowledge: React.FC = () => {
     });
 
     return (
-        <points ref={pointsRef} geometry={pointsGeometry} scale={[4, 4, 4]}>
+        <points ref={pointsRef} geometry={pointsGeometry} scale={[13, 13, 13]} position-y={-2.5}>
             <pointsMaterial 
                 color="#00e7ff" 
                 size={0.015} 
