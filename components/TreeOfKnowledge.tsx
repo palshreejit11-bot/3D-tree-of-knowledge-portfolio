@@ -30,7 +30,7 @@ const TreeOfKnowledge: React.FC = () => {
     return (
         <primitive 
             object={scene} 
-            scale={[2.5, 2.5, 2.5]} 
+            scale={[5, 5, 5]} 
             position-y={0} 
         />
     );
