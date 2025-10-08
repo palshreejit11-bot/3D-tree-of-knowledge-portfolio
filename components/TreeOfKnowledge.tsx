@@ -1,10 +1,11 @@
-
 // Fix: Add side-effect import to extend JSX namespace for react-three-fiber elements.
 import '@react-three/fiber';
 import React, { useMemo, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+// Fix: Import BufferGeometryUtils from its correct module path.
+import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
 // A free model by baronwatts, converted to Draco for smaller size.
 const TREE_MODEL_URL = 'https://raw.githubusercontent.com/baronwatts/models/master/trees/tree-draco.glb';
@@ -26,7 +27,8 @@ const TreeOfKnowledge: React.FC = () => {
         });
 
         if (positions.length > 0) {
-            const mergedPositions = THREE.BufferGeometryUtils.mergeBufferAttributes(positions);
+            // Fix: Use the imported BufferGeometryUtils instead of accessing it through THREE.
+            const mergedPositions = BufferGeometryUtils.mergeBufferAttributes(positions);
             geometry.setAttribute('position', mergedPositions);
         }
         
