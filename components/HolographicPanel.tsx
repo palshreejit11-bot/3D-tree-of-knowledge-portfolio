@@ -8,7 +8,7 @@ interface HolographicPanelProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const HolographicPanel: React.FC<HolographicPanelProps> = ({ children, className = '', ...rest }) => {
     return (
-        <div className={`holographic rounded-lg p-2 px-4 text-center text-sm md:text-base ${className}`} {...rest}>
+        <div className={`holographic holographic-animated rounded-lg p-2 px-4 text-center text-sm md:text-base ${className}`} {...rest}>
             {children}
         </div>
     );

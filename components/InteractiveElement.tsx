@@ -18,12 +18,10 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickab
     const meshRef = useRef<THREE.Mesh>(null);
     const setExpandedProject = useStore(state => state.setExpandedProject);
 
+    const isLeft = item.position[0] < 0;
+
     useEffect(() => {
-        if (isHovered && isClickable) {
-            document.body.style.cursor = 'pointer';
-        } else {
-            document.body.style.cursor = 'auto';
-        }
+        document.body.style.cursor = isHovered && isClickable ? 'pointer' : 'auto';
         return () => { document.body.style.cursor = 'auto' };
     }, [isHovered, isClickable]);
 
@@ -31,7 +29,7 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickab
         if (meshRef.current) {
             const material = meshRef.current.material as THREE.MeshStandardMaterial;
             material.emissiveIntensity = isHovered 
-                ? 2 + Math.sin(clock.getElapsedTime() * 5) * 1 
+                ? 2 + Math.sin(clock.getElapsedTime() * 5)
                 : 0.5 + Math.sin(clock.getElapsedTime() * 2) * 0.25;
         }
     });
@@ -46,7 +44,7 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickab
         <group position={item.position as [number, number, number]}>
             <Icosahedron
                 ref={meshRef}
-                args={[0.15, 0]} // args={[radius, detail]}
+                args={[0.15, 0]}
                 scale={1.5}
                 onPointerOver={() => setHovered(true)}
                 onPointerOut={() => setHovered(false)}
@@ -60,12 +58,11 @@ const InteractiveElement: React.FC<InteractiveElementProps> = ({ item, isClickab
                 />
             </Icosahedron>
             <Html 
-                position={[0, 0.3, 0]}
-                center
+                position={[isLeft ? 0.3 : -0.3, 0, 0]} // Position panel to the side
                 style={{ 
                     transition: 'opacity 0.3s, transform 0.3s',
                     opacity: isHovered ? 1 : 0,
-                    transform: isHovered ? 'scale(1)' : 'scale(0.9)',
+                    transform: `scale(${isHovered ? 1 : 0.95}) ${isLeft ? 'translateX(50%)' : 'translateX(-50%)'}`,
                     pointerEvents: 'none',
                     width: 'max-content'
                 }}

@@ -27,6 +27,22 @@
             color: #e0f7fa;
             text-shadow: 0 0 5px rgba(0, 231, 255, 0.7);
         }
+        .holographic-animated::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 231, 255, 0.7);
+            box-shadow: 0 0 10px rgba(0, 231, 255, 0.7);
+            animation: scan-line 3s infinite linear;
+        }
+
+        @keyframes scan-line {
+            0% { top: 0%; }
+            100% { top: 100%; }
+        }
     </style>
 </head>
 <body>

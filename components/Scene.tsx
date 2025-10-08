@@ -39,7 +39,7 @@ const Scene: React.FC = () => {
             <pointLight position={[0, 5, 5]} intensity={1.5} color="#00e7ff" distance={20} decay={1.5} />
             <Starfield />
 
-            <group ref={groupRef} position-y={-2}>
+            <group ref={groupRef} position-y={-2} position-x={-1}>
                 <TreeOfKnowledge />
                 <SectionContent />
             </group>

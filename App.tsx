@@ -54,7 +54,7 @@ const App: React.FC = () => {
     return (
         <>
             <div className={`w-full h-full transition-filter duration-300 ${expandedProject ? 'blur-sm' : 'blur-none'}`}>
-                <Canvas camera={{ position: [0, 0, 7], fov: 35 }}>
+                <Canvas camera={{ position: [0, 0, 8], fov: 35 }}>
                     <Suspense fallback={null}>
                         <CameraRig />
                         <Scene />
