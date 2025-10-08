@@ -14,7 +14,7 @@ const TreeOfKnowledge: React.FC = () => {
     const gltf = useGLTF(TREE_MODEL_URL);
     const pointsRef = useRef<THREE.Points>(null);
 
-    const pointsGeometry = useMemo(() => {
+    const [pointsGeometry, originalPositions] = useMemo(() => {
         const scene = gltf.scene.clone();
         const geometry = new THREE.BufferGeometry();
         const positions: THREE.Float32BufferAttribute[] = [];
@@ -31,16 +31,35 @@ const TreeOfKnowledge: React.FC = () => {
             // Fix: Correctly use `mergeAttributes` from `BufferGeometryUtils` as `mergeBufferAttributes` is deprecated/renamed.
             const mergedPositions = BufferGeometryUtils.mergeAttributes(positions);
             geometry.setAttribute('position', mergedPositions);
+            // Store a clone of the original positions for stable animation
+            return [geometry, mergedPositions.clone()];
         }
         
-        return geometry;
+        return [geometry, null];
     }, [gltf]);
 
     useFrame(({ clock }) => {
-        if (pointsRef.current) {
+        if (pointsRef.current && originalPositions) {
             const material = pointsRef.current.material as THREE.PointsMaterial;
+            const positions = pointsRef.current.geometry.attributes.position as THREE.BufferAttribute;
+            const time = clock.getElapsedTime();
+
             // Subtle breathing glow effect
-            material.opacity = 0.7 + Math.sin(clock.getElapsedTime() * 0.5) * 0.3;
+            material.opacity = 0.7 + Math.sin(time * 0.5) * 0.3;
+
+            // Subtle swirling particle animation to make the tree feel alive
+            for (let i = 0; i < positions.count; i++) {
+                const originalX = originalPositions.getX(i);
+                const originalY = originalPositions.getY(i);
+                const originalZ = originalPositions.getZ(i);
+                
+                const yOffset = Math.sin(time * 0.3 + originalX * 0.5) * 0.03;
+                const xOffset = Math.cos(time * 0.2 + originalZ * 0.5) * 0.03;
+
+                positions.setY(i, originalY + yOffset);
+                positions.setX(i, originalX + xOffset);
+            }
+            positions.needsUpdate = true;
         }
     });
 

@@ -34,6 +34,7 @@ const Scene: React.FC = () => {
 
     return (
         <>
+            <fog attach="fog" args={['#000510', 10, 25]} />
             <ambientLight intensity={0.2} color="#00e7ff" />
             <pointLight position={[0, 5, 5]} intensity={1.5} color="#00e7ff" distance={20} decay={1.5} />
             <Starfield />
@@ -44,7 +45,7 @@ const Scene: React.FC = () => {
             </group>
             
             <EffectComposer>
-                <Bloom intensity={0.6} kernelSize={3} luminanceThreshold={0.2} luminanceSmoothing={0.9} />
+                <Bloom intensity={1.5} kernelSize={3} luminanceThreshold={0.1} luminanceSmoothing={0.9} />
             </EffectComposer>
         </>
     );

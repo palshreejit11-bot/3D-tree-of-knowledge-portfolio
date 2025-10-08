@@ -8,6 +8,7 @@ import Scene from './components/Scene';
 import { useStore } from './store/useStore';
 import { SECTION_DATA } from './constants';
 import ProjectDetail from './components/ProjectDetail';
+import CameraRig from './components/CameraRig';
 
 const App: React.FC = () => {
     const mainTitleRef = useRef<HTMLDivElement>(null);
@@ -55,6 +56,7 @@ const App: React.FC = () => {
             <div className={`w-full h-full transition-filter duration-300 ${expandedProject ? 'blur-sm' : 'blur-none'}`}>
                 <Canvas camera={{ position: [0, 1.5, 10], fov: 50 }}>
                     <Suspense fallback={null}>
+                        <CameraRig />
                         <Scene />
                     </Suspense>
                 </Canvas>
